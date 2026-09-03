@@ -544,18 +544,20 @@ export default function Page() {
 
       <header className="nav">
         <a
-          className="brand"
-          href="#home"
-          onClick={() => setMenuOpen(false)}
+        className="brand"
+        href="#home"
+        onClick={() => setMenuOpen(false)}
         >
-        <img
-          src="/favicon.png"
-          alt="Rajendra Randa"
-          className="brand-mark"
-        />
-  <span><h1><i>The_Way_Of_Life</i>...</h1></span>
-</a>
+      <img
+        src="/favicon.png"
+        alt="Rajendra Randa"
+        className="brand-mark"
+      />
 
+       <h1>
+          <i>The_Way_Of_Life</i>...
+        </h1>
+      </a>
 
         <button
           className="menu-button"
@@ -1035,64 +1037,78 @@ export default function Page() {
           </p>
 
           {/* ---------- Contact Form ---------- */}
-
           <form
-            onSubmit={(event) => {
-              event.preventDefault();
+  onSubmit={async (event) => {
+    event.preventDefault();
 
-              const form = event.currentTarget;
+    const form = event.currentTarget;
 
-              const name = (
-                form.elements.namedItem("name") as HTMLInputElement
-              ).value;
+    const name = (
+      form.elements.namedItem("name") as HTMLInputElement
+    ).value;
 
-              const email = (
-                form.elements.namedItem("email") as HTMLInputElement
-              ).value;
+    const email = (
+      form.elements.namedItem("email") as HTMLInputElement
+    ).value;
 
-              const message = (
-                form.elements.namedItem("message") as HTMLTextAreaElement
-              ).value;
+    const message = (
+      form.elements.namedItem("message") as HTMLTextAreaElement
+    ).value;
 
-              const subject = `Academic Query from ${name}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+      });
 
-              const body =
-                `Name: ${name}\n` +
-                `Email: ${email}\n\n` +
-                `${message}`;
+      const data = await response.json();
 
-              window.location.href =
-                `mailto:erajen@duck.com?subject=${encodeURIComponent(
-                  subject
-                )}&body=${encodeURIComponent(body)}`;
-            }}
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Your name"
-              required
-            />
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send query.");
+      }
 
-            <input
-              type="email"
-              name="email"
-              placeholder="Your email"
-              required
-            />
+      alert("Your query has been sent successfully.");
 
-            <textarea
-              name="message"
-              placeholder="Your query"
-              rows={5}
-              required
-            />
+      form.reset();
+    } catch (error) {
+      console.error(error);
 
-            <button type="submit" className="button primary">
-              Send Query
-            </button>
-          </form>
+      alert("Unable to send your query. Please try again.");
+    }
+  }}
+>
+  <input
+    type="text"
+    name="name"
+    placeholder="Your name"
+    required
+  />
 
+  <input
+    type="email"
+    name="email"
+    placeholder="Your email"
+    required
+  />
+
+  <textarea
+    name="message"
+    placeholder="Your query"
+    rows={5}
+    required
+  />
+
+  <button type="submit" className="button primary">
+    Send Query
+  </button>
+</form>
           {/* ---------- Academic Links ---------- */}
 
           <div className="contact-links">
