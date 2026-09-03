@@ -149,7 +149,7 @@ const publications: Publication[] = [
     venue: "ICMRLTLLAI-2025, Pune, India",
     details: "Conference presentation",
     type: "Conference Presentation",
-    image: "/papers/conferences/conf_2.jpg",
+    image: "/papers/conferences/p_2.jpg",
     sourceLink: "link1.html",
   },
   {
@@ -159,7 +159,7 @@ const publications: Publication[] = [
     venue: "UGC ETICS-2024, Bhopal, India",
     details: "Conference presentation",
     type: "Conference Presentation",
-    image: "/papers/conferences/conf_2.jpg",
+    image: "/papers/conferences/p_1.jpg",
     sourceLink: "link1.html",
   },
   {
@@ -172,7 +172,7 @@ const publications: Publication[] = [
     details:
       "16–17 March 2024, Bikaner Technical University, Bikaner; Springer",
     type: "Conference Proceedings",
-    image: "/papers/conferences/conf.jpg",
+    image: "/papers/conferences/conf_2.jpg",
     sourceLink:
       "https://link.springer.com/chapter/10.1007/978-981-97-4533-3_22",
   },
@@ -1062,7 +1062,7 @@ export default function Page() {
                 `${message}`;
 
               window.location.href =
-                `mailto:YOUR_EMAIL@example.com?subject=${encodeURIComponent(
+                `mailto:erajen@duck.com?subject=${encodeURIComponent(
                   subject
                 )}&body=${encodeURIComponent(body)}`;
             }}
